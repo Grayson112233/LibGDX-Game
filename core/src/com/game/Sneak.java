@@ -6,23 +6,24 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.entities.Entity;
+import com.entities.Player;
 
 public class Sneak extends ApplicationAdapter {
 	SpriteBatch batch;
-	Entity guy;
+	Player guy;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		guy = new Entity();
+		guy = new Player();
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		
+		guy.render(batch);
 		batch.end();
 	}
 }

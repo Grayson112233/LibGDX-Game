@@ -2,8 +2,15 @@ package com.physics;
 
 public class Hitbox{
 	
-	private float x, y;
-	private int width, height;
+	public float x, y;
+	public int width, height;
+	
+	public Hitbox(float x, float y, int width, int height){
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
 	
 	public boolean collidePoint(float x, float y){
 		if(x > this.x && x < this.x + width){
@@ -44,38 +51,6 @@ public class Hitbox{
 	
 	public float getBottomRightY(){
 		return y;
-	}
-	
-	public float getX(){
-		return x;
-	}
-	
-	public float getY(){
-		return y;
-	}
-	
-	public int getWidth(){
-		return width;
-	}
-	
-	public int getHeight(){
-		return height;
-	}
-	
-	public void setX(float x){
-		this.x = x;
-	}
-	
-	public void setY(float y){
-		this.y = y;
-	}
-	
-	public void setWidth(int width){
-		this.width = width;
-	}
-	
-	public void setHeight(int height){
-		this.height = height;
 	}
 	
 }

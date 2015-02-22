@@ -13,7 +13,7 @@ public class Player extends Entity{
 	public Player(){
 		super(0, 0);
 		a_idle = new Animation(1);
-		a_idle.addFrame(new Texture("entities/player/stand1.png"), 1);
+		a_idle.addFrame(new Texture("entities/player/stand.png"), 1);
 								
 		a_walking = new Animation(2);
 		a_walking.addFrame(new Texture("entities/player/walk1.png"), 20);
@@ -25,7 +25,7 @@ public class Player extends Entity{
 	public Player(float x, float y){
 		super(x, y);
 		a_idle = new Animation(1);
-		a_idle.addFrame(new Texture("entities/player/stand1.png"), 1);
+		a_idle.addFrame(new Texture("entities/player/stand.png"), 1);
 								
 		a_walking = new Animation(2);
 		a_walking.addFrame(new Texture("entities/player/walk1.png"), 20);
@@ -35,7 +35,7 @@ public class Player extends Entity{
 	}
 	
 	public void render(SpriteBatch batch){
-		a_idle.render(batch, x, y);
+		a_walking.render(batch, x, y);
 	}
 	
 	public int getWidth(){

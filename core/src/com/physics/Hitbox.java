@@ -53,4 +53,9 @@ public class Hitbox{
 		return y;
 	}
 	
+	public void setCoords(float x, float y){
+		this.x = x;
+		this.y = y;
+	}
+	
 }

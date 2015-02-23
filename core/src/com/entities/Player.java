@@ -1,5 +1,9 @@
 package com.entities;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.Animation;
@@ -13,9 +17,15 @@ public class Player extends Entity{
 	public Animation a_walking_left;
 	
 	public int speed = 5;
+	public float bullet_speed = 20;
 	
 	public boolean moving = false;
 	public boolean heading = true;
+	
+	public ArrayList<Bullet> bullets;
+	
+	public int shoot_cooldown = 20;
+	public int shoot_counter = 0;
 	
 	public Player(float x, float y){
 		super(y, x);
@@ -34,6 +44,42 @@ public class Player extends Entity{
 		a_walking_left.addFrame(new Texture("entities/player/walk2_left.png"), 20);
 		
 		hitbox = new Hitbox(x, y, getWidth(), getHeight());
+		bullets = new ArrayList<Bullet>();
+	}
+	
+	public void update(){
+		if(shoot_counter > 0){
+			shoot_counter -= 1;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.W)){
+			up();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.A)){
+			left();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.S)){
+			down();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.D)){
+			right();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+			shoot_right();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+			shoot_left();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+			shoot_up();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+			shoot_down();
+		}
+		for(int i = 0; i < bullets.size(); i ++){
+			bullets.get(i).update();
+		}
+		clamp();
+		moving = false;
 	}
 	
 	public void render(SpriteBatch batch){
@@ -54,7 +100,9 @@ public class Player extends Entity{
 				a_idle_left.render(batch, x, y);
 			}
 		}
-		moving = false;
+		for(int i = 0; i < bullets.size(); i ++){
+			bullets.get(i).render(batch);
+		}
 	}
 	
 	public int getWidth(){
@@ -66,24 +114,47 @@ public class Player extends Entity{
 	}
 	
 	public void up(){
-		y += speed;
+		setY(y + speed);
 		moving = true;
 	}
 	
 	public void down(){
-		y -= speed;
+		setY(y - speed);
 		moving = true;
 	}
 	
 	public void left(){
-		x -= speed;
+		setX(x - speed);
 		moving = true;
 		heading = false;
 	}
 	public void right(){
-		x += speed;
+		setX(x + speed);
 		moving = true;
 		heading = true;
 	}
-	
+	public void shoot_right(){
+		if(shoot_counter == 0){
+			bullets.add(new Bullet(x, y, bullet_speed, 0));
+			shoot_counter = shoot_cooldown;
+		}
+	}
+	public void shoot_left(){
+		if(shoot_counter == 0){
+			bullets.add(new Bullet(x, y, -bullet_speed, 0));
+			shoot_counter = shoot_cooldown;
+		}
+	}
+	public void shoot_up(){
+		if(shoot_counter == 0){
+			bullets.add(new Bullet(x, y, 0, bullet_speed));
+			shoot_counter = shoot_cooldown;
+		}
+	}
+	public void shoot_down(){
+		if(shoot_counter == 0){
+			bullets.add(new Bullet(x, y, 0, -bullet_speed));
+			shoot_counter = shoot_cooldown;
+		}
+	}
 }

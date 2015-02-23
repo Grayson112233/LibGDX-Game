@@ -20,20 +20,7 @@ public class Sneak extends ApplicationAdapter {
 	}
 	
 	public void update(){
-		
-		if(Gdx.input.isKeyPressed(Input.Keys.W)){
-			guy.up();
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.A)){
-			guy.left();
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.S)){
-			guy.down();
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.D)){
-			guy.right();
-		}
-		
+		guy.update();
 	}
 
 	@Override
